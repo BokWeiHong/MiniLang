@@ -15,8 +15,6 @@ const std::unordered_map<std::string, TokenType> Lexer::KEYWORDS = {
     {"else", TokenType::KEYWORD},
     {"for", TokenType::KEYWORD},
     {"while", TokenType::KEYWORD},
-    {"start", TokenType::KEYWORD},
-    {"end", TokenType::KEYWORD},
     {"in", TokenType::KEYWORD},
     {"out", TokenType::KEYWORD},
     {"class", TokenType::KEYWORD},
@@ -31,7 +29,7 @@ std::vector<Token> Lexer::tokenize() {
 
     std::regex commentPattern(R"(/\*(.|[\r\n])*?\*/|//[^\n]*)");
     std::regex stringPattern(R"("(?:[^"\\]|\\.)*")");
-    std::regex keywordPattern(R"(\b(?:start|end|in|out|if|else|for|while)\b)");
+    std::regex keywordPattern(R"(\b(?:class|Main|in|out|if|else|for|while)\b)");
     std::regex datatypePattern(R"(\b(?:int|float|String|bool|double)\b)");
     std::regex identifierPattern(R"(\b[a-zA-Z_]\w*\b)");
     std::regex intLiteralPattern(R"(\b\d+\b)");
