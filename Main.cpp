@@ -40,5 +40,11 @@ int main(int argc, char* argv[]){
         std::cout << token.getType() << ": " << token.getValue() << std::endl;
     }
 
+    // Parser parser(tokens);
+    // std::unique_ptr<ASTNode> root = parser.parse();
+
+    // std::cout << "Syntax Tree:" << std::endl;
+    // std::cout << root->toString(0) << std::endl;
+
     return EXIT_SUCCESS;
 }

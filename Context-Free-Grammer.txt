@@ -1,0 +1,37 @@
+Program         -> MainMethodDeclaration
+MainDeclaration -> 'class' 'Main' '(' ')' '{' StatementList '}'
+StatementList   -> Statement StatementList | ε
+Block           -> "{" Statement "}"
+Statement       -> Assignment | Output | Input | IfStatement
+Assignment      -> DataType Identifier '=' Expression ';'
+Output          -> 'out:' Expression ';'
+Input           -> 'in:' Expression ';'
+IfStatement     -> 'if' '(' Expression ')' '{' StatementList '}'
+Expression      -> Term (('+' | '-') Term)*
+Term            -> Factor (('*' | '/') Factor)*
+Factor          -> Identifier | IntegerLiteral | StringLiteral | "(" Expression ")"
+DataType        -> "int" | "float" | "String" | "bool" | "double"
+Identifier      -> Letter (Letter | Digit)*
+IntegerLiteral  -> // Any integer value
+StringLiteral   -> "\"" AnyCharacters "\""
+AnyCharacters   -> // Any sequence of characters
+
+Program
+|-- MainMethodDeclaration
+    |-- "class"
+    |-- "Main"
+    |-- "("
+    |-- ")"
+    |-- Block
+        |-- "{"
+        |-- Statement
+        │   |-- PrintStatement
+        │       |-- "out"
+        │       |-- ":"
+        │       |-- Expression
+        │       │     |-- Term
+        │       │         |-- Factor
+        │       │         |-- StringLiteral
+        │       │             |-- "\""
+        │       │             |-- AnyCharacters
+        |-- "}"
