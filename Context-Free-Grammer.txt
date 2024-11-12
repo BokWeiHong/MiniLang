@@ -2,10 +2,10 @@ Program         -> MainMethodDeclaration
 MainDeclaration -> 'class' 'Main' '(' ')' '{' StatementList '}'
 StatementList   -> Statement StatementList | ε
 Block           -> "{" Statement "}"
-Statement       -> Assignment | Output | Input | IfStatement
+Statement       -> Assignment | OutputStatement | InputStatement | IfStatement
 Assignment      -> DataType Identifier '=' Expression ';'
-Output          -> 'out:' Expression ';'
-Input           -> 'in:' Expression ';'
+OutputStatement -> 'out:' Expression ';'
+InputStatement  -> 'in:' Expression ';'
 IfStatement     -> 'if' '(' Expression ')' '{' StatementList '}'
 Expression      -> Term (('+' | '-') Term)*
 Term            -> Factor (('*' | '/') Factor)*
@@ -22,10 +22,10 @@ Program
     |-- "Main"
     |-- "("
     |-- ")"
-    |-- Block
+    |-- StatementList
         |-- "{"
         |-- Statement
-        │   |-- PrintStatement
+        │   |-- OutputStatement
         │       |-- "out"
         │       |-- ":"
         │       |-- Expression

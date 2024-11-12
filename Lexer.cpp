@@ -11,6 +11,7 @@ const std::unordered_map<std::string, TokenType> Lexer::KEYWORDS = {
     {"double", TokenType::DATA_TYPE},
     {"float", TokenType::DATA_TYPE},
     {"bool", TokenType::DATA_TYPE},
+    {"char", TokenType::DATA_TYPE},
     {"if", TokenType::KEYWORD},
     {"else", TokenType::KEYWORD},
     {"for", TokenType::KEYWORD},
@@ -30,7 +31,7 @@ std::vector<Token> Lexer::tokenize() {
     std::regex commentPattern(R"(/\*(.|[\r\n])*?\*/|//[^\n]*)");
     std::regex stringPattern(R"("(?:[^"\\]|\\.)*")");
     std::regex keywordPattern(R"(\b(?:class|Main|in|out|if|else|for|while)\b)");
-    std::regex datatypePattern(R"(\b(?:int|float|String|bool|double)\b)");
+    std::regex datatypePattern(R"(\b(?:int|float|String|bool|double|char)\b)");
     std::regex identifierPattern(R"(\b[a-zA-Z_]\w*\b)");
     std::regex intLiteralPattern(R"(\b\d+\b)");
     std::regex operatorPattern(R"([+\-*/=<>!]|and|or|not)");
@@ -60,28 +61,28 @@ std::vector<Token> Lexer::tokenize() {
         }
 
         if (std::regex_search(searchStart, sourceCode.cend(), match, commentPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::COMMENT, match.str());
+            tokens.emplace_back(TokenType::COMMENT, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, stringPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::STRING_LITERAL, match.str());
+            tokens.emplace_back(TokenType::STRING_LITERAL, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, keywordPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::KEYWORD, match.str());
+            tokens.emplace_back(TokenType::KEYWORD, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, datatypePattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::DATA_TYPE, match.str());
+            tokens.emplace_back(TokenType::DATA_TYPE, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, intLiteralPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::INT_LITERAL, match.str());
+            tokens.emplace_back(TokenType::INT_LITERAL, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, identifierPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::IDENTIFIER, match.str());
+            tokens.emplace_back(TokenType::IDENTIFIER, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, operatorPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::OPERATOR, match.str());
+            tokens.emplace_back(TokenType::OPERATOR, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, delimiterPattern) && match.position() == 0) {
-            tokens.emplace_back(TokenType::DELIMITER, match.str());
+            tokens.emplace_back(TokenType::DELIMITER, match.str(), lineCount);
         }
         else {
             errors.push_back("Error at line " + std::to_string(lineCount) + ": Unknown token '" + std::string(1, *searchStart) + "'");
@@ -102,7 +103,7 @@ std::vector<Token> Lexer::tokenize() {
         std::exit(EXIT_FAILURE);
     }
 
-    tokens.emplace_back(TokenType::END_OF_FILE, "");
+    tokens.emplace_back(TokenType::END_OF_FILE, "", lineCount);
     return tokens;
 }
 

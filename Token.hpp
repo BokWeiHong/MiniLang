@@ -35,9 +35,10 @@ struct Token {
     public:
         TokenType type;
         std::string value;
+        int line;
 
-        Token(TokenType type, const std::string& value)
-            : type(type), value(value) {}
+        Token(TokenType type, const std::string& value, int line)
+            : type(type), value(value), line(line) {}
 
         TokenType getType() const{
             return type;
@@ -45,6 +46,10 @@ struct Token {
 
         const std::string& getValue() const {
             return value;
+        }
+
+        int getLine() const {
+            return line;
         }
 };
 
