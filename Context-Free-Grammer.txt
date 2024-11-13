@@ -1,20 +1,30 @@
-Program         -> MainMethodDeclaration
-MainDeclaration -> 'class' 'Main' '(' ')' '{' StatementList '}'
-StatementList   -> Statement StatementList | ε
-Block           -> "{" Statement "}"
-Statement       -> Assignment | OutputStatement | InputStatement | IfStatement
-Assignment      -> DataType Identifier '=' Expression ';'
-OutputStatement -> 'out:' Expression ';'
-InputStatement  -> 'in:' Expression ';'
-IfStatement     -> 'if' '(' Expression ')' '{' StatementList '}'
-Expression      -> Term (('+' | '-') Term)*
-Term            -> Factor (('*' | '/') Factor)*
-Factor          -> Identifier | IntegerLiteral | StringLiteral | "(" Expression ")"
-DataType        -> "int" | "float" | "String" | "bool" | "double"
-Identifier      -> Letter (Letter | Digit)*
-IntegerLiteral  -> // Any integer value
-StringLiteral   -> "\"" AnyCharacters "\""
-AnyCharacters   -> // Any sequence of characters
+Program             -> MainMethodDeclaration
+MainDeclaration     -> 'class' 'Main' '(' ')' '{' StatementList '}'
+StatementList       -> Statement | ε
+Block               -> "{" Statement "}"
+Statement           -> Assignment | OutputStatement | InputStatement | IfStatement | LoopStatement
+Assignment          -> DataType Identifier '=' Expression ';'
+OutputStatement     -> 'out' ':' Expression ';'
+InputStatement      -> 'in' ':' Identifier ';'
+IfStatement         -> 'if' '(' BooleanExpression ')' '{' StatementList '}'
+LoopStatement       -> 'while' '(' BooleanExpression ')' '{' StatementList '}'
+RelationalStatement -> Expression '==' Expression 
+                    | Expression '<' Expression 
+                    | Expression '>' Expression 
+                    | Expression '<=' Expression 
+                    | Expression '>=' Expression
+BooleanExpression   -> BooleanLiteral | RelationalStatement
+                    | 'NOT' RelationalStatement
+                    | RelationalStatement 'AND' RelationalStatement 
+                    | RelationalStatement 'OR' RelationalStatement 
+Expression          -> Term (('+' | '-' | '*' | '/') Term)*
+Term                -> Identifier | IntegerLiteral | StringLiteral | BooleanLiteral
+DataType            -> "int" | "float" | "String" | "bool" | "double" | "char"
+Identifier          -> Letter (Letter | Digit)*
+IntegerLiteral      -> // Any integer value
+StringLiteral       -> "\"" AnyCharacters "\""
+BooleanLiteral      -> "true" | "false"
+AnyCharacters       -> // Any sequence of characters
 
 Program
 |-- MainMethodDeclaration

@@ -11,6 +11,7 @@ enum class TokenType {
     END_OF_FILE, 
     DATA_TYPE, 
     STRING_LITERAL, 
+    BOOLEAN_LITERAL,
     COMMENT, 
     DELIMITER,
     UNKNOWN
@@ -25,6 +26,7 @@ static std::ostream& operator<<(std::ostream& os, TokenType tt) {
         case TokenType::END_OF_FILE: return os << "END_OF_FILE";
         case TokenType::DATA_TYPE: return os << "DATA_TYPE";
         case TokenType::STRING_LITERAL: return os << "STRING_LITERAL";
+        case TokenType::BOOLEAN_LITERAL: return os << "BOOLEAN_LITERAL";
         case TokenType::COMMENT: return os << "COMMENT";
         case TokenType::DELIMITER: return os << "DELIMITER";
         default: return os << "UNKNOWN";

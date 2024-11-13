@@ -12,6 +12,11 @@ const std::unordered_map<std::string, TokenType> Lexer::KEYWORDS = {
     {"float", TokenType::DATA_TYPE},
     {"bool", TokenType::DATA_TYPE},
     {"char", TokenType::DATA_TYPE},
+    {"true", TokenType::BOOLEAN_LITERAL},
+    {"false", TokenType::BOOLEAN_LITERAL},
+    {"NOT", TokenType::OPERATOR},
+    {"AND", TokenType::OPERATOR},
+    {"OR", TokenType::OPERATOR},
     {"if", TokenType::KEYWORD},
     {"else", TokenType::KEYWORD},
     {"for", TokenType::KEYWORD},
@@ -33,8 +38,9 @@ std::vector<Token> Lexer::tokenize() {
     std::regex keywordPattern(R"(\b(?:class|Main|in|out|if|else|for|while)\b)");
     std::regex datatypePattern(R"(\b(?:int|float|String|bool|double|char)\b)");
     std::regex identifierPattern(R"(\b[a-zA-Z_]\w*\b)");
+    std::regex booleanPattern(R"(\b(?:true|false)\b)");
     std::regex intLiteralPattern(R"(\b\d+\b)");
-    std::regex operatorPattern(R"([+\-*/=<>!]|and|or|not)");
+    std::regex operatorPattern(R"([+\-*/=<>!]|<=|>=|==|AND|OR|NOT)");
     std::regex delimiterPattern(R"([()\[\]{};:,.])");
     std::regex errorPattern(R"(^[_!@#%^&*]\w*|^\d+[a-zA-Z_]\w*)");
 
@@ -74,6 +80,9 @@ std::vector<Token> Lexer::tokenize() {
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, intLiteralPattern) && match.position() == 0) {
             tokens.emplace_back(TokenType::INT_LITERAL, match.str(), lineCount);
+        }
+        else if (std::regex_search(searchStart, sourceCode.cend(), match, booleanPattern) && match.position() == 0) {
+            tokens.emplace_back(TokenType::BOOLEAN_LITERAL, match.str(), lineCount);
         }
         else if (std::regex_search(searchStart, sourceCode.cend(), match, identifierPattern) && match.position() == 0) {
             tokens.emplace_back(TokenType::IDENTIFIER, match.str(), lineCount);

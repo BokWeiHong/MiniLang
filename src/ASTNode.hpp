@@ -9,6 +9,8 @@ class ASTNode {
 public:
     ASTNode(const std::string& type);
     ASTNode(const std::string& type, std::unique_ptr<ASTNode> child);
+    ASTNode(const std::string& type, const std::string& value, std::unique_ptr<ASTNode> child);
+    ASTNode(const std::string& type, std::unique_ptr<ASTNode> left, std::unique_ptr<ASTNode> right);
     void addChild(std::unique_ptr<ASTNode> child);
     std::string toString(int indentLevel) const;
 

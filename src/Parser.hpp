@@ -23,9 +23,15 @@ private:
     std::unique_ptr<ASTNode> parseOutput();
     std::unique_ptr<ASTNode> parseInput();
     std::unique_ptr<ASTNode> parseIfStatement();
+    std::unique_ptr<ASTNode> parseLoopStatement();
+    std::unique_ptr<ASTNode> parseRelationalStatement();
+    std::unique_ptr<ASTNode> parseBooleanExpression();
+    std::unique_ptr<ASTNode> parseIntegerLiteral();
+    std::unique_ptr<ASTNode> parseBooleanLiteral();
+    std::unique_ptr<ASTNode> parseStringLiteral();
+    std::unique_ptr<ASTNode> parseIdentifier();
     std::unique_ptr<ASTNode> parseExpression();
     std::unique_ptr<ASTNode> parseTerm();
-    std::unique_ptr<ASTNode> parseFactor();
 
     const Token& currentToken() const;
     void advanceToken();

@@ -1,4 +1,4 @@
-lass Main() {
+class Main() {
     int m = 3;
     int n = 4;
 
