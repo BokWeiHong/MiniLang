@@ -37,16 +37,20 @@ int main(int argc, char* argv[]){
     Lexer lexer(sourceCode);
     std::vector<Token> tokens = lexer.tokenize();
 
+    Parser parser(tokens);
+    std::unique_ptr<ASTNode> root = parser.parse();
+
+    std::cout << "----------------------------------------" << std::endl;
     std::cout << "Tokens:" << std::endl;
     for (const Token& token : tokens) {
         std::cout << token.getType() << ": " << token.getValue() << std::endl;
     }
 
-    Parser parser(tokens);
-    std::unique_ptr<ASTNode> root = parser.parse();
-
+    std::cout << "\n";
+    std::cout << "----------------------------------------" << std::endl;
     std::cout << "Syntax Tree:" << std::endl;
-    std::cout << root->toString(0) << std::endl;
+    std::cout << root->toString() << std::endl; 
+    std::cout << "----------------------------------------" << std::endl;
 
     return EXIT_SUCCESS;
 }

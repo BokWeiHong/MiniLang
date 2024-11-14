@@ -4,7 +4,7 @@ class Main() {
 
     int x = m + n;
 
-    if (x > 4){
+    if (x > 4) {
         out: "x is greater than 4";
     }
 }

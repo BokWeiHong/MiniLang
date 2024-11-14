@@ -32,16 +32,15 @@ Program
     |-- "Main"
     |-- "("
     |-- ")"
+    |-- "{"
     |-- StatementList
-        |-- "{"
         |-- Statement
-        │   |-- OutputStatement
-        │       |-- "out"
-        │       |-- ":"
-        │       |-- Expression
-        │       │     |-- Term
-        │       │         |-- Factor
-        │       │         |-- StringLiteral
-        │       │             |-- "\""
-        │       │             |-- AnyCharacters
-        |-- "}"
+            |-- OutputStatement
+                |-- "out"
+                |-- ":"
+                |-- Expression
+                     |-- Term
+                         |-- Factor
+                             |-- StringLiteral
+                                 |-- AnyCharacters
+    |-- "}"
