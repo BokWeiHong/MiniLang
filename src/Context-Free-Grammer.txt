@@ -6,7 +6,7 @@ Statement           -> Assignment | OutputStatement | InputStatement | IfStateme
 Assignment          -> DataType Identifier '=' Expression ';'
 OutputStatement     -> 'out' ':' Expression ';'
 InputStatement      -> 'in' ':' Identifier ';'
-IfStatement         -> 'if' '(' BooleanExpression ')' '{' StatementList '}'
+IfStatement         -> 'if' '(' BooleanExpression ')' '{' StatementList '}' ('else' '{' StatementList '}')?
 LoopStatement       -> 'while' '(' BooleanExpression ')' '{' StatementList '}'
 RelationalStatement -> Expression '==' Expression 
                     | Expression '<' Expression 
@@ -14,9 +14,6 @@ RelationalStatement -> Expression '==' Expression
                     | Expression '<=' Expression 
                     | Expression '>=' Expression
 BooleanExpression   -> BooleanLiteral | RelationalStatement
-                    | 'NOT' RelationalStatement
-                    | RelationalStatement 'AND' RelationalStatement 
-                    | RelationalStatement 'OR' RelationalStatement 
 Expression          -> Term (('+' | '-' | '*' | '/') Term)*
 Term                -> Identifier | IntegerLiteral | StringLiteral | BooleanLiteral
 DataType            -> "int" | "float" | "String" | "bool" | "double" | "char"
@@ -26,21 +23,3 @@ StringLiteral       -> "\"" AnyCharacters "\""
 BooleanLiteral      -> "true" | "false"
 AnyCharacters       -> // Any sequence of characters
 
-Program
-|-- MainMethodDeclaration
-    |-- "class"
-    |-- "Main"
-    |-- "("
-    |-- ")"
-    |-- "{"
-    |-- StatementList
-        |-- Statement
-            |-- OutputStatement
-                |-- "out"
-                |-- ":"
-                |-- Expression
-                     |-- Term
-                         |-- Factor
-                             |-- StringLiteral
-                                 |-- AnyCharacters
-    |-- "}"

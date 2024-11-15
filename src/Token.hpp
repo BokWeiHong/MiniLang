@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+// Enum class representing the different types of tokens
 enum class TokenType {
     IDENTIFIER, 
     INT_LITERAL, 
@@ -17,6 +18,7 @@ enum class TokenType {
     UNKNOWN
 };
 
+// Overload the << operator for TokenType to print the token type as a string
 static std::ostream& operator<<(std::ostream& os, TokenType tt) {
     switch (tt) {
         case TokenType::IDENTIFIER: return os << "IDENTIFIER";
@@ -42,14 +44,17 @@ struct Token {
         Token(TokenType type, const std::string& value, int line)
             : type(type), value(value), line(line) {}
 
+        // Getter methods
         TokenType getType() const{
             return type;
         }
 
+        // Getter method for the token value
         const std::string& getValue() const {
             return value;
         }
 
+        // Getter method for the token line
         int getLine() const {
             return line;
         }

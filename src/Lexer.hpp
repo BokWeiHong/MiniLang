@@ -16,6 +16,7 @@ class Lexer {
 
     private:
         std::string sourceCode;
+        // Static constant unordered map of keywords and their corresponding token types
         static const std::unordered_map<std::string, TokenType> KEYWORDS;    
 };
 

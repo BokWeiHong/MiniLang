@@ -1,0 +1,4 @@
+lass Main() {
+    int x = 1;
+    out: x;
+}

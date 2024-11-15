@@ -13,13 +13,16 @@ void ASTNode::addChild(std::unique_ptr<ASTNode> child) {
 
 std::string ASTNode::toString() const {
     std::string result;
+    // Check if the node has no indentation
     if (indent == -1) {
         result += type + "\n";
     } else {
-        result += std::string(indent, ' ') + "|-- " + type + "\n";
+        // Add the type of the node to the result with indentation
+        result += std::string(indent * 3, ' ') + "|- " + type + "\n";
     }
-
+    // Loop through the children of the node
     for (const auto& child : children) {
+        // Recursively convert each child to a string and append it to the result
         result += child->toString();
     }
 
