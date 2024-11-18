@@ -40,6 +40,7 @@ std::vector<Token> Lexer::tokenize() {
     std::regex identifierPattern(R"(\b[a-zA-Z_]\w*\b)");
     std::regex booleanPattern(R"(\b(?:true|false)\b)");
     std::regex intLiteralPattern(R"(\b\d+\b)");
+    std::regex floatLiteralPattern(R"(\b\d+\.\d+\b)");
     std::regex operatorPattern(R"(<=|>=|==|[+\-*/=!<>])");
     std::regex delimiterPattern(R"([()\[\]{};:,.])");
     std::regex errorPattern(R"(^[_!@#%^&]\w*|^\d+[a-zA-Z_]\w*)");
@@ -87,6 +88,10 @@ std::vector<Token> Lexer::tokenize() {
         // Check for data types
         else if (std::regex_search(searchStart, sourceCode.cend(), match, datatypePattern) && match.position() == 0) {
             tokens.emplace_back(TokenType::DATA_TYPE, match.str(), lineCount);
+        }
+        // Check for float literals
+        else if (std::regex_search(searchStart, sourceCode.cend(), match, floatLiteralPattern) && match.position() == 0) {
+            tokens.emplace_back(TokenType::FLOAT_LITERAL, match.str(), lineCount);
         }
         // Check for integer literals
         else if (std::regex_search(searchStart, sourceCode.cend(), match, intLiteralPattern) && match.position() == 0) {

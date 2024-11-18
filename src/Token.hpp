@@ -15,6 +15,7 @@ enum class TokenType {
     BOOLEAN_LITERAL,
     COMMENT, 
     DELIMITER,
+    FLOAT_LITERAL,
     UNKNOWN
 };
 
@@ -31,6 +32,7 @@ static std::ostream& operator<<(std::ostream& os, TokenType tt) {
         case TokenType::BOOLEAN_LITERAL: return os << "BOOLEAN_LITERAL";
         case TokenType::COMMENT: return os << "COMMENT";
         case TokenType::DELIMITER: return os << "DELIMITER";
+        case TokenType::FLOAT_LITERAL: return os << "FLOAT_LITERAL";
         default: return os << "UNKNOWN";
     }
 }

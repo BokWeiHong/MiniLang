@@ -528,6 +528,10 @@ std::unique_ptr<ASTNode> Parser::parseTerm(int& indentLevel) {
         termNode->addChild(std::make_unique<ASTNode>(currentToken().getValue(), newIndentLevel));
         advanceToken();
         return termNode;
+    } else if (match(TokenType::FLOAT_LITERAL)) {
+        termNode->addChild(std::make_unique<ASTNode>(currentToken().getValue(), newIndentLevel));
+        advanceToken();
+        return termNode;
     } else if (match(TokenType::STRING_LITERAL)) {
         termNode->addChild(std::make_unique<ASTNode>(currentToken().getValue(), newIndentLevel));
         advanceToken();

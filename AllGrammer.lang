@@ -1,5 +1,5 @@
 class Main() {
-    int m = 3;
+    float m = 4.3;
     int n;
 
     // Input n

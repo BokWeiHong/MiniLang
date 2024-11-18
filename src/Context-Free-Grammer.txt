@@ -15,11 +15,12 @@ RelationalStatement -> Expression '==' Expression
                     | Expression '>=' Expression
 BooleanExpression   -> BooleanLiteral | RelationalStatement
 Expression          -> Term (('+' | '-' | '*' | '/') Term)*
-Term                -> Identifier | IntegerLiteral | StringLiteral | BooleanLiteral
+Term                -> Identifier | IntegerLiteral | StringLiteral | BooleanLiteral | FloatLiteral
 DataType            -> "int" | "float" | "String" | "bool" | "double" | "char"
 Identifier          -> Letter (Letter | Digit)*
 IntegerLiteral      -> // Any integer value
 StringLiteral       -> "\"" AnyCharacters "\""
+FloatLiteral        -> // Any float value
 BooleanLiteral      -> "true" | "false"
 AnyCharacters       -> // Any sequence of characters
 
